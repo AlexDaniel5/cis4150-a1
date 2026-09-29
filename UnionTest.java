@@ -141,8 +141,7 @@ public class UnionTest {
         }
 
         // Test 11: same printed value but different types (Integer 1 vs String "1").
-        // Fault addressed: Equality of elements + Type of elements. Equality uses equals(), so
-        // Integer 1 and String "1" are NOT duplicates and both are kept, even though both print as 1.
+        // Fault addressed: Ensure that Integer 1 and String "1" remain separate in the result vector, following equals() behaviour
         {
             Vector<Object> a = new Vector<>(); a.add(Integer.valueOf(1)); // Integer 1
             Vector<Object> b = new Vector<>(); b.add("1");                // String "1"
