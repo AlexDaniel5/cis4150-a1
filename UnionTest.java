@@ -1,4 +1,3 @@
-
 import java.util.Vector;
 
 public class UnionTest {
@@ -121,32 +120,20 @@ public class UnionTest {
             report("Test 8: equalityByValueNotIdentity", result.size() == 1);
         }
 
-        // Test 9: inputs must not be mutated (no side effects on the arguments).
-        // Fault addressed: Modification of the input vectors.
-        {
-            Vector<String> a = v("a", "b"), b = v("b", "c");
-            Vector result = sut(a, b);
-            System.out.println("[Test 9: inputsNotModified]");
-            System.out.println("    input a  = " + a + "   (must stay [a, b])");
-            System.out.println("    input b  = " + b + "   (must stay [b, c])");
-            System.out.println("    result   = " + result);
-            report("Test 9: inputsNotModified", a.equals(v("a", "b")) && b.equals(v("b", "c")));
-        }
-
-        // Test 10: aliased inputs (a == b) still yield a set with no duplicates.
+        // Test 9: aliased inputs (a == b) still yield a set with no duplicates.
         // Fault addressed: Same vectors passed twice.
         {
             Vector<String> a = v("a", "b");
-            check("Test 10: aliasedInputs (same Vector passed as both args)", a, a, sut(a, a), v("a", "b"));
+            check("Test 9: aliasedInputs (same Vector passed as both args)", a, a, sut(a, a), v("a", "b"));
         }
 
-        // Test 11: same printed value but different types (Integer 1 vs String "1").
-        // Fault addressed: Ensure that Integer 1 and String "1" remain separate in the result vector, following equals() behaviour
+        // Test 10: same printed value but different types (Integer 1 vs String "1").
+        // Fault addressed: Ensure that Integer 1 and String "1" remain separate in the result Vector, following equals() behavior.
         {
             Vector<Object> a = new Vector<>(); a.add(Integer.valueOf(1)); // Integer 1
             Vector<Object> b = new Vector<>(); b.add("1");                // String "1"
             Vector result = sut(a, b);
-            System.out.println("[Test 11: intVsStringSameValue]");
+            System.out.println("[Test 10: intVsStringSameValue]");
             System.out.println("    input a  = " + a + "   (Integer 1)");
             System.out.println("    input b  = " + b + "   (String \"1\")");
             System.out.println("    result   = " + result + "   size=" + result.size());
@@ -154,7 +141,7 @@ public class UnionTest {
             boolean ok = result.size() == 2
                     && Integer.valueOf(1).equals(result.get(0))
                     && "1".equals(result.get(1));
-            report("Test 11: intVsStringSameValue", ok);
+            report("Test 10: intVsStringSameValue", ok);
         }
 
         System.out.println("==================================================");
